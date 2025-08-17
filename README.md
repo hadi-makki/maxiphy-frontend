@@ -30,6 +30,9 @@ maxify-frontend/
 │   │   ├── globals.css        # Global styles
 │   │   └── layout.tsx         # Root layout
 │   ├── components/            # Reusable components
+│   │   ├── __tests__/        # Component tests
+│   │   │   ├── MButton.test.tsx
+│   │   │
 │   │   ├── todo/             # Todo-specific components
 │   │   │   ├── AddTodoForm.tsx
 │   │   │   ├── EditTodoForm.tsx
