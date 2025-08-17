@@ -11,7 +11,7 @@ import { z } from "zod";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z.email(),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -30,12 +30,7 @@ export default function RegisterPage() {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
-    try {
-      await registerUser(data);
-    } catch (error) {
-      console.error("Registration failed:", error);
-      // Error is handled by the hook
-    }
+    await registerUser(data);
   };
 
   return (
@@ -45,15 +40,6 @@ export default function RegisterPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
-            <Link
-              href="/auth/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
-            >
-              sign in to your existing account
-            </Link>
-          </p>
         </div>
 
         <Form {...form}>
@@ -103,6 +89,15 @@ export default function RegisterPage() {
                 className="w-full"
               />
             </div>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link
+                href="/auth/login"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                sign in
+              </Link>
+            </p>
           </form>
         </Form>
       </div>

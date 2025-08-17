@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: z.email("Please enter a valid email address"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -28,12 +28,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      await login(data);
-    } catch (error) {
-      console.error("Login failed:", error);
-      // Error is handled by the hook
-    }
+    await login(data);
   };
 
   return (
@@ -43,15 +38,6 @@ export default function LoginPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
-            <Link
-              href="/auth/register"
-              className="font-medium text-blue-600 hover:text-blue-500"
-            >
-              create a new account
-            </Link>
-          </p>
         </div>
 
         <Form {...form}>
@@ -92,6 +78,15 @@ export default function LoginPage() {
                 className="w-full"
               />
             </div>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/auth/register"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                Register
+              </Link>
+            </p>
           </form>
         </Form>
       </div>
