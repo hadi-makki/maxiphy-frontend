@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuth } from "@/lib/hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import MButton from "@/components/MButton";
+import { useAuth } from "@/lib/hooks/useAuth";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 export default function DashboardLayout({
   children,
@@ -11,13 +11,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { isAuthenticated, isLoadingUser, user, logout } = useAuth();
-  const router = useRouter();
 
   useEffect(() => {
     if (!isLoadingUser && !isAuthenticated) {
-      router.push("/auth/login");
+      redirect("/auth/login");
     }
-  }, [isAuthenticated, isLoadingUser, router]);
+  }, [isAuthenticated, isLoadingUser]);
 
   const handleLogout = async () => {
     try {

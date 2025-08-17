@@ -80,11 +80,12 @@ maxify-frontend/
    ```
 
 2. **Start the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+
+```bash
+npm run dev
+# or
+yarn dev
+```
 
 The application will be running at `http://localhost:3000`
 

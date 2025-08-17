@@ -16,11 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import MValidatedInput from "@/components/MValidatedInput";
 import MButton from "@/components/MButton";
-
-interface AddTodoFormProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+import { useDashboardStore } from "@/views/dashboard/store/useDashboardStore";
 
 const createTodoSchema = z.object({
   description: z.string().min(1, "Description is required"),
@@ -31,7 +27,8 @@ const createTodoSchema = z.object({
 
 type CreateTodoFormData = z.infer<typeof createTodoSchema>;
 
-export default function AddTodoForm({ open, onOpenChange }: AddTodoFormProps) {
+export default function AddTodoForm() {
+  const { showAddDialog, closeAddDialog } = useDashboardStore();
   const createTodo = useCreateTodo();
 
   const form = useForm<CreateTodoFormData>({
@@ -50,7 +47,7 @@ export default function AddTodoForm({ open, onOpenChange }: AddTodoFormProps) {
         ...data,
         date: new Date(data.date).toISOString(),
       });
-      onOpenChange(false);
+      closeAddDialog();
       form.reset();
     } catch (error) {
       console.error("Error creating todo:", error);
@@ -58,12 +55,12 @@ export default function AddTodoForm({ open, onOpenChange }: AddTodoFormProps) {
   };
 
   const handleClose = () => {
-    onOpenChange(false);
+    closeAddDialog();
     form.reset();
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={showAddDialog} onOpenChange={closeAddDialog}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Add New Todo</DialogTitle>

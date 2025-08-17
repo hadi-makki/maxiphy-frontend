@@ -1,10 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { authApi } from "../api";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   const {
     data: user,
@@ -28,7 +27,7 @@ export const useAuth = () => {
     mutationFn: authApi.login,
     onSuccess: (data) => {
       queryClient.setQueryData(["auth", "me"], data.user);
-      router.push("/dashboard");
+      redirect("/dashboard");
     },
   });
 
@@ -36,7 +35,7 @@ export const useAuth = () => {
     mutationFn: authApi.register,
     onSuccess: (data) => {
       queryClient.setQueryData(["auth", "me"], data.user);
-      router.push("/dashboard");
+      redirect("/dashboard");
     },
   });
 
@@ -45,7 +44,7 @@ export const useAuth = () => {
     onSuccess: () => {
       queryClient.setQueryData(["auth", "me"], null);
       queryClient.clear();
-      router.push("/auth/login");
+      redirect("/auth/login");
     },
   });
 
