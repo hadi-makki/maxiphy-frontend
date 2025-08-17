@@ -76,20 +76,7 @@ maxify-frontend/
    yarn install
    ```
 
-2. **Configure environment variables**
-
-   ```bash
-   # Create environment file
-   cp .env.example .env.local
-   ```
-
-   Edit `.env.local`:
-
-   ```env
-   NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
-   ```
-
-3. **Start the development server**
+2. **Start the development server**
    ```bash
    npm run dev
    # or
